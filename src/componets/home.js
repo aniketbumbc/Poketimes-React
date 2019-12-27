@@ -1,11 +1,45 @@
-import React from 'react';
-const home = () =>{
+import React,{Component} from 'react';
+import axios from 'axios';
+
+class home extends Component{
+state = {
+    posts:[]
+
+}
+componentDidMount(){
+axios.get('https://jsonplaceholder.typicode.com/posts')
+.then(res=>{
+    console.log(res);
+    this.setState({
+        posts:res.data.slice(0,10)
+    })
+})
+}
+
+render(){
+    const {posts} = this.state;
+    const postList = posts.length ?(
+        posts.map(post=>{
+            return(
+                <div className="post card" key={post.id}>
+                    <div className="card-content">
+                    <span className="card-title">{post.title}</span>
+                    <p>{post.body}</p>
+                    </div>
+                </div>
+            )
+        })
+    ):(
+        <div className="center blue-text"> No posts yet......        
+        </div>
+    )
     return(
         <div className="container">
             <h4 className="center"> Home </h4>
-            <p> You'll notice that there are two sets of the files. The min means that the file is "compressed" to reduce load times. These minified files are usually used in production while it is better to use the unminified files during development.</p>
+            {postList}
         </div>
     )
+}
 }
 
 export default home;

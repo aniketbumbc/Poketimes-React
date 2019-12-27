@@ -1,4 +1,5 @@
 import React from 'react';
+import rainbow from '../hoc/rainbow';
 const about = () => {
     return(
         <div className="container">
@@ -9,4 +10,4 @@ const about = () => {
     )
 }
 
-export default about;
+export default  rainbow(about);
